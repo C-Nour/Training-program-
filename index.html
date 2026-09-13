@@ -1,0 +1,2245 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>5-DAY SPLIT PROTOCOL | C / NOUR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #060911;
+            --card-bg: rgba(15, 23, 42, 0.85);
+            --card-border: rgba(255, 255, 255, 0.12);
+            
+            --day1-color: #a855f7;
+            --day2-color: #eab308;
+            --day3-color: #f97316;
+            --day4-color: #06b6d4;
+            --day5-color: #ec4899;
+            --rest-color: #64748b;
+
+            --accent-gold: #f59e0b;
+            --current-theme: var(--day1-color);
+            --current-theme-glow: rgba(168, 85, 247, 0.4);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', 'Cairo', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(168, 85, 247, 0.18) 0%, transparent 45%),
+                radial-gradient(circle at 90% 90%, rgba(6, 182, 212, 0.18) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(249, 115, 22, 0.1) 0%, transparent 65%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 16px 12px 40px 12px;
+            direction: ltr;
+            transition: filter 0.25s ease;
+        }
+
+        /* Anti-Screenshot & Screen Recording Protection Styles */
+        @media print {
+            html, body {
+                display: none !important;
+                visibility: hidden !important;
+            }
+        }
+
+        .security-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.003),
+                rgba(255, 255, 255, 0.003) 100px,
+                rgba(0, 0, 0, 0.003) 100px,
+                rgba(0, 0, 0, 0.003) 200px
+            );
+        }
+
+        #privacyBlanker {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #060911;
+            z-index: 99999;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        /* HERO CARD */
+        .hero-card {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.98));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 24px;
+            padding: 26px 18px;
+            text-align: center;
+            margin-bottom: 22px;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--day1-color), var(--day2-color), var(--day3-color), var(--day4-color), var(--day5-color));
+        }
+
+        .coach-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 22px;
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.45);
+            border-radius: 50px;
+            color: #fbbf24;
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+        }
+
+        .hero-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 0.8px;
+            color: #ffffff;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            line-height: 1.2;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+        }
+
+        .hero-subtitle {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 22px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .day-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 14px;
+            padding: 12px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .day-btn.d1 { border-color: var(--day1-color); }
+        .day-btn.d2 { border-color: var(--day2-color); }
+        .day-btn.d3 { border-color: var(--day3-color); }
+        .day-btn.d4 { border-color: var(--day4-color); }
+        .day-btn.d5 { border-color: var(--day5-color); }
+        .day-btn.rest { border-color: var(--rest-color); background: rgba(255,255,255,0.02); }
+
+        .day-btn .num {
+            font-size: 0.75rem;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 3px;
+            letter-spacing: 0.5px;
+        }
+
+        .day-btn.d1 .num { color: var(--day1-color); }
+        .day-btn.d2 .num { color: var(--day2-color); }
+        .day-btn.d3 .num { color: var(--day3-color); }
+        .day-btn.d4 .num { color: var(--day4-color); }
+        .day-btn.d5 .num { color: var(--day5-color); }
+        .day-btn.rest .num { color: var(--rest-color); }
+
+        .day-btn .name {
+            font-size: 0.88rem;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .day-btn:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* SELECTOR DROPDOWN */
+        .select-container {
+            margin-bottom: 18px;
+            position: relative;
+        }
+
+        .custom-select {
+            width: 100%;
+            padding: 14px 16px 14px 40px;
+            background: rgba(15, 23, 42, 0.95);
+            border: 2px solid var(--current-theme);
+            border-radius: 14px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: 800;
+            outline: none;
+            cursor: pointer;
+            appearance: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4), 0 0 18px var(--current-theme-glow);
+        }
+
+        .select-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--current-theme);
+            pointer-events: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        /* PHASE TABS */
+        .phase-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 22px;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(12px);
+            padding: 6px;
+            border-radius: 14px;
+            border: 1px solid var(--card-border);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 11px 4px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 800;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .tab-btn.active {
+            background: var(--current-theme);
+            color: #ffffff;
+            box-shadow: 0 4px 16px var(--current-theme-glow);
+        }
+
+        /* CONTENT SECTIONS */
+        .phase-content {
+            display: none;
+            animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .phase-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* CARDS */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 18px;
+            box-shadow: 0 8px 26px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px var(--current-theme-glow);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            gap: 10px;
+        }
+
+        .card-title-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .card-title-group i {
+            color: var(--current-theme);
+            font-size: 1.25rem;
+            flex-shrink: 0;
+            transition: color 0.3s ease;
+        }
+
+        .card-title {
+            font-size: 0.98rem;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.3;
+        }
+
+        .badge-time, .sets-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .badge-time {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-muted);
+            font-size: 0.74rem;
+            font-weight: 800;
+            padding: 5px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .sets-badge {
+            font-size: 0.74rem;
+            font-weight: 800;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            padding: 5px 12px;
+            border-radius: 8px;
+        }
+
+        .sub-badge {
+            display: inline-block;
+            padding: 5px 14px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            color: var(--current-theme);
+            font-size: 0.8rem;
+            font-weight: 800;
+            margin-bottom: 14px;
+            transition: color 0.3s ease;
+        }
+
+        /* EXERCISE ITEMS */
+        .exercise-item {
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 13px;
+            padding: 13px 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .exercise-item:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateX(3px);
+        }
+
+        .exercise-item.selected {
+            border-color: var(--current-theme);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+        }
+
+        .check-box {
+            width: 23px;
+            height: 23px;
+            border-radius: 7px;
+            border: 2px solid rgba(255, 255, 255, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .exercise-item.selected .check-box,
+        .ramping-item.selected .check-box,
+        .option-box.selected .check-box {
+            background: var(--current-theme);
+            border-color: var(--current-theme);
+            box-shadow: 0 0 12px var(--current-theme-glow);
+        }
+
+        .check-box i {
+            font-size: 0.78rem;
+            color: #ffffff;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.2s ease;
+        }
+
+        .exercise-item.selected .check-box i,
+        .ramping-item.selected .check-box i,
+        .option-box.selected .check-box i {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .exercise-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .ex-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .ex-name-en {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 3px;
+            line-height: 1.3;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .ex-name-ar {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            line-height: 1.35;
+            direction: rtl;
+            text-align: left;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .ex-details {
+            font-size: 0.76rem;
+            color: #cbd5e1;
+            margin-top: 5px;
+            line-height: 1.4;
+            direction: rtl;
+            text-align: left;
+            white-space: normal;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .ex-details span {
+            color: var(--current-theme);
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        /* RAMPING BOX SEPARATE ITEMS */
+        .ramping-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .ramping-item {
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 13px;
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .ramping-item:hover {
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .ramping-item.selected {
+            border-color: var(--current-theme);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .ramping-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .ramping-en {
+            font-size: 0.85rem;
+            color: #ffffff;
+            font-weight: 700;
+            line-height: 1.4;
+            direction: ltr;
+            text-align: left;
+            margin-bottom: 2px;
+        }
+
+        .ramping-ar {
+            font-size: 0.80rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            line-height: 1.35;
+            direction: rtl;
+            text-align: left;
+        }
+
+        /* OPTIONS BOX */
+        .option-box {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 13px;
+            padding: 14px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.025);
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .option-box.selected {
+            border-color: var(--current-theme);
+            background: rgba(255, 255, 255, 0.09);
+        }
+
+        .option-header {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: var(--current-theme);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: color 0.3s ease;
+        }
+
+        .bullet-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .bullet-list li {
+            font-size: 0.82rem;
+            color: #cbd5e1;
+            margin-bottom: 5px;
+            position: relative;
+            padding-left: 14px;
+            line-height: 1.4;
+        }
+
+        .bullet-list li::before {
+            content: "•";
+            color: var(--current-theme);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .site-footer {
+            text-align: center;
+            margin-top: 28px;
+            padding: 18px;
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            letter-spacing: 0.5px;
+        }
+
+        .site-footer span {
+            color: var(--accent-gold);
+            font-weight: 800;
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 12px 8px 30px 8px; }
+            .hero-title { font-size: 1.45rem; }
+            .day-btn .name { font-size: 0.82rem; }
+            .ex-name-en { font-size: 0.85rem; }
+            .ex-name-ar { font-size: 0.77rem; }
+            .card-title { font-size: 0.9rem; }
+            .badge-time, .sets-badge { font-size: 0.7rem; padding: 4px 9px; }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
+
+    <div class="security-overlay"></div>
+    <div id="privacyBlanker">PROTECTED CONTENT</div>
+
+    <div class="container">
+        
+        <!-- HERO CARD -->
+        <div class="hero-card">
+            <div class="coach-badge">C / NOUR <i class="fa-solid fa-crown"></i></div>
+
+            <h1 class="hero-title">5-DAY SPLIT PROTOCOL</h1>
+            <p class="hero-subtitle">TRAINING PROGRAM</p>
+            
+            <div class="days-grid">
+                <div class="day-btn d1" onclick="switchDay('day1')">
+                    <span class="num">Day 1</span>
+                    <span class="name">Push Day</span>
+                </div>
+                <div class="day-btn d2" onclick="switchDay('day2')">
+                    <span class="num">Day 2</span>
+                    <span class="name">Pull Day</span>
+                </div>
+                <div class="day-btn d3" onclick="switchDay('day3')">
+                    <span class="num">Day 3</span>
+                    <span class="name">Leg & Abs</span>
+                </div>
+                <div class="day-btn rest">
+                    <span class="num">REST</span>
+                    <span class="name">Rest Day</span>
+                </div>
+                <div class="day-btn d4" onclick="switchDay('day4')">
+                    <span class="num">Day 4</span>
+                    <span class="name">Upper Body</span>
+                </div>
+                <div class="day-btn d5" onclick="switchDay('day5')">
+                    <span class="num">Day 5</span>
+                    <span class="name">Lower Body</span>
+                </div>
+                <div class="day-btn rest" style="grid-column: span 2;">
+                    <span class="num">REST</span>
+                    <span class="name">Rest Day</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SELECTOR DROPDOWN -->
+        <div class="select-container">
+            <select id="daySelect" class="custom-select" onchange="switchDay(this.value)">
+                <option value="day1">Day 1: Push Day</option>
+                <option value="day2">Day 2: Pull Day</option>
+                <option value="day3">Day 3: Leg & Abs Day</option>
+                <option value="day4">Day 4: Upper Body</option>
+                <option value="day5">Day 5: Lower Body & Abs</option>
+            </select>
+            <i class="fa-solid fa-chevron-down select-icon"></i>
+        </div>
+
+        <!-- PHASE TAB BUTTONS -->
+        <div class="phase-tabs">
+            <button class="tab-btn active" onclick="switchPhase('warmup')">
+                <i class="fa-solid fa-fire"></i> Warm-Up
+            </button>
+            <button class="tab-btn" onclick="switchPhase('main')">
+                <i class="fa-solid fa-dumbbell"></i> Workout
+            </button>
+            <button class="tab-btn" onclick="switchPhase('cooldown')">
+                <i class="fa-solid fa-heart-pulse"></i> Cool-Down
+            </button>
+        </div>
+
+        <!-- Helper function for End Cardio Block -->
+        <!-- DAY 1 to DAY 5 TEMPLATES -->
+
+        <!-- ==================== DAY 1: PUSH DAY ==================== -->
+        <div id="day1" class="day-program">
+            <div class="phase-content warmup active">
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-person-running"></i>
+                            <span class="card-title">General Warm-Up</span>
+                        </div>
+                        <span class="badge-time">5-10 MIN</span>
+                    </div>
+                    <div class="sub-badge">Select 1 Option Only</div>
+                    
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION A: Treadmill</div>
+                            <div class="ex-name-ar">المشاية (Treadmill)</div>
+                            <div class="ex-details">Incline: <span>2 to 4</span> | Speed: <span>4.5 to 5.5 km/h</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION B: Stationary Bike</div>
+                            <div class="ex-name-ar">العجلة (Stationary Bike)</div>
+                            <div class="ex-details">Level: <span>3 to 5</span> | Speed / RPM: <span>70 to 80</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-arrows-spin"></i>
+                            <span class="card-title">Dynamic Stretching</span>
+                        </div>
+                        <span class="sets-badge">1-2 Sets | 12 Reps</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Forward Arm Circles</div>
+                            <div class="ex-name-ar">دوران الذراع للأمام</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Backward Arm Circles</div>
+                            <div class="ex-name-ar">دوران الذراع للخلف</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Resistance Band Dislocates</div>
+                            <div class="ex-name-ar">إطالة الأكتاف بحبل المقاومة</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <span class="card-title">Rotator Cuff</span>
+                        </div>
+                        <span class="sets-badge">1-2 Sets | 12 Reps</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Cable External Shoulder Rotation</div>
+                            <div class="ex-name-ar">دوران خارجي للكتف بالكيبل</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Cable Internal Shoulder Rotation</div>
+                            <div class="ex-name-ar">دوران داخلي للكتف بالكيبل</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Cable Supraspinatus 15° Lateral Raise</div>
+                            <div class="ex-name-ar">رفرفة جانبي بالكيبل زاوية 15</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-layer-group"></i>
+                            <span class="card-title">Specific Ramping Sets</span>
+                        </div>
+                        <span class="sets-badge">Specific Warm-up</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)" style="margin-bottom: 12px;">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Incline Bench Press Machine</div>
+                            <div class="ex-name-ar">دفع صدر علوي بالجهاز</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="ramping-container">
+                        <div class="ramping-item" onclick="toggleSelect(this)">
+                            <div class="ramping-info">
+                                <div class="ramping-en">Set 1: 50% of base weight 12 reps</div>
+                                <div class="ramping-ar">المجموعة الأولى: 50% من الوزن الأساسي × 12 تكراراً</div>
+                            </div>
+                            <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                        <div class="ramping-item" onclick="toggleSelect(this)">
+                            <div class="ramping-info">
+                                <div class="ramping-en">Set 2: 70%–80% of weight Base weight x 5 reps</div>
+                                <div class="ramping-ar">المجموعة الثانية: 70% - 80% من الوزن الأساسي × 5 تكرارات</div>
+                            </div>
+                            <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="phase-content main">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-dumbbell"></i>
+                            <span class="card-title">Push Day - Main Workout</span>
+                        </div>
+                        <span class="sets-badge">2-3 Sets | 8-12 Reps</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Incline Bench Press Machine</div>
+                            <div class="ex-name-ar">دفع صدر علوي بالجهاز</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Butterfly / Chest Fly Machine</div>
+                            <div class="ex-name-ar">فراشة صدر بالجهاز</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Single-Arm Cable Lateral Raise</div>
+                            <div class="ex-name-ar">رفرفة جانبي كيبل فردي</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Machine Shoulder Press</div>
+                            <div class="ex-name-ar">دفع كتف بالجهاز</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Seated Single-Arm Cable Overhead Tricep</div>
+                            <div class="ex-name-ar">الترايسبس فوق الرأس بالكيبل فردي من وضعية الجلوس</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Single-Arm Cable Triceps Pushdown</div>
+                            <div class="ex-name-ar">ترايسبس بوش داون كيبل فردي</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="phase-content cooldown">
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                            <span class="card-title">End Cardio</span>
+                        </div>
+                        <span class="badge-time">20-30 MIN</span>
+                    </div>
+                    <div class="sub-badge">Select 1 Option Only</div>
+
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION A: Stairmaster</div>
+                            <div class="ex-name-ar">جهاز السلم (Stairmaster)</div>
+                            <div class="ex-details">Level: <span>5 to 8</span> | Speed: <span>50 to 70 SPM</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION B: Cybex Arc Trainer</div>
+                            <div class="ex-name-ar">جهاز السايبكس (Cybex Arc Trainer)</div>
+                            <div class="ex-details">Incline: <span>10 to 15</span> | Resistance: <span>35 to 50</span> | Speed: <span>110 to 130 SPM</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION C: Treadmill</div>
+                            <div class="ex-name-ar">المشاية (Treadmill)</div>
+                            <div class="ex-details">Incline: <span>8 to 12</span> | Speed: <span>3.5 to 4.5 km/h</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-child"></i>
+                            <span class="card-title">Static Stretching & Cool-Down</span>
+                        </div>
+                        <span class="sets-badge">1-2 Sets | Hold 20-30s</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Wall Chest Stretch</div>
+                            <div class="ex-name-ar">إطالة عضلات الصدر على الحائط</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Cross-Body Shoulder Stretch</div>
+                            <div class="ex-name-ar">إطالة عضلات الكتف الجانبي</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Overhead Triceps Stretch</div>
+                            <div class="ex-name-ar">إطالة عضلات الترايسبس خلف الرأس</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== DAY 2: PULL DAY ==================== -->
+        <div id="day2" class="day-program" style="display: none;">
+            <div class="phase-content warmup active">
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-person-running"></i>
+                            <span class="card-title">General Warm-Up</span>
+                        </div>
+                        <span class="badge-time">5-10 MIN</span>
+                    </div>
+                    <div class="sub-badge">Select 1 Option Only</div>
+                    
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION A: Treadmill</div>
+                            <div class="ex-name-ar">المشاية (Treadmill)</div>
+                            <div class="ex-details">Incline: <span>2 to 4</span> | Speed: <span>4.5 to 5.5 km/h</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION B: Stationary Bike</div>
+                            <div class="ex-name-ar">العجلة (Stationary Bike)</div>
+                            <div class="ex-details">Level: <span>3 to 5</span> | Speed / RPM: <span>70 to 80</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-arrows-spin"></i>
+                            <span class="card-title">Dynamic Stretching</span>
+                        </div>
+                        <span class="sets-badge">1-2 Sets | 12 Reps</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Forward Arm Circles</div>
+                            <div class="ex-name-ar">دوران الذراع للأمام</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Backward Arm Circles</div>
+                            <div class="ex-name-ar">دوران الذراع للخلف</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Resistance Band Dislocates</div>
+                            <div class="ex-name-ar">إطالة الأكتاف بحبل المقاومة</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <span class="card-title">Rotator Cuff</span>
+                        </div>
+                        <span class="sets-badge">1-2 Sets | 12 Reps</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Cable External Shoulder Rotation</div>
+                            <div class="ex-name-ar">دوران خارجي للكتف بالكيبل</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Cable Internal Shoulder Rotation</div>
+                            <div class="ex-name-ar">دوران داخلي للكتف بالكيبل</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Cable Supraspinatus 15° Lateral Raise</div>
+                            <div class="ex-name-ar">رفرفة جانبي بالكيبل زاوية 15</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-layer-group"></i>
+                            <span class="card-title">Specific Ramping Sets</span>
+                        </div>
+                        <span class="sets-badge">Specific Warm-up</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)" style="margin-bottom: 12px;">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Lat Pulldown</div>
+                            <div class="ex-name-ar">سحب عمودي</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="ramping-container">
+                        <div class="ramping-item" onclick="toggleSelect(this)">
+                            <div class="ramping-info">
+                                <div class="ramping-en">Set 1: 50% of base weight 12 reps</div>
+                                <div class="ramping-ar">المجموعة الأولى: 50% من الوزن الأساسي × 12 تكراراً</div>
+                            </div>
+                            <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                        <div class="ramping-item" onclick="toggleSelect(this)">
+                            <div class="ramping-info">
+                                <div class="ramping-en">Set 2: 70%–80% of weight Base weight x 5 reps</div>
+                                <div class="ramping-ar">المجموعة الثانية: 70% - 80% من الوزن الأساسي × 5 تكرارات</div>
+                            </div>
+                            <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="phase-content main">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-dumbbell"></i>
+                            <span class="card-title">Pull Day - Main Workout</span>
+                        </div>
+                        <span class="sets-badge">2-3 Sets | 8-12 Reps</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Lat Pulldown</div>
+                            <div class="ex-name-ar">سحب عمودي</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Single-Arm Cable Row</div>
+                            <div class="ex-name-ar">سحب كيبل فردي</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">T-Bar Scapular Retraction</div>
+                            <div class="ex-name-ar">انكماش لوحي الكتف على التي بار</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Single-Arm Cable Rear Delt Fly</div>
+                            <div class="ex-name-ar">رفرفة كتف خلفي بالكيبل ذراع فردي</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Single-Arm Cable Preacher Curl</div>
+                            <div class="ex-name-ar">بايسبس ارتكاز كيبل فردي (أو جهاز)</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Single-Arm Cable Hammer Curl</div>
+                            <div class="ex-name-ar">باي شاكوش بالكيبل ذراع فردي</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Cable Multi-Grip Shrugs</div>
+                            <div class="ex-name-ar">ترابيس بالكيبل (أو سميث)</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Back Extension</div>
+                            <div class="ex-name-ar">تمديد الظهر (القطانية)</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="phase-content cooldown">
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                            <span class="card-title">End Cardio</span>
+                        </div>
+                        <span class="badge-time">20-30 MIN</span>
+                    </div>
+                    <div class="sub-badge">Select 1 Option Only</div>
+
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION A: Stairmaster</div>
+                            <div class="ex-name-ar">جهاز السلم (Stairmaster)</div>
+                            <div class="ex-details">Level: <span>5 to 8</span> | Speed: <span>50 to 70 SPM</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION B: Cybex Arc Trainer</div>
+                            <div class="ex-name-ar">جهاز السايبكس (Cybex Arc Trainer)</div>
+                            <div class="ex-details">Incline: <span>10 to 15</span> | Resistance: <span>35 to 50</span> | Speed: <span>110 to 130 SPM</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION C: Treadmill</div>
+                            <div class="ex-name-ar">المشاية (Treadmill)</div>
+                            <div class="ex-details">Incline: <span>8 to 12</span> | Speed: <span>3.5 to 4.5 km/h</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-child"></i>
+                            <span class="card-title">Static Stretching & Cool-Down</span>
+                        </div>
+                        <span class="sets-badge">1-2 Sets | Hold 20-30s</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Standing Lat Stretch</div>
+                            <div class="ex-name-ar">إطالة عضلات الظهر (اللاتس)</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Wall Biceps Stretch</div>
+                            <div class="ex-name-ar">إطالة عضلات البايسبس</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Rear Delt Cross-Body Stretch</div>
+                            <div class="ex-name-ar">إطالة عضلات الكتف الخلفي</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== DAY 3: LEG & ABS DAY ==================== -->
+        <div id="day3" class="day-program" style="display: none;">
+            <div class="phase-content warmup active">
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-person-running"></i>
+                            <span class="card-title">General Warm-Up</span>
+                        </div>
+                        <span class="badge-time">5-10 MIN</span>
+                    </div>
+                    <div class="sub-badge">Select 1 Option Only</div>
+                    
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION A: Treadmill</div>
+                            <div class="ex-name-ar">المشاية (Treadmill)</div>
+                            <div class="ex-details">Incline: <span>2 to 4</span> | Speed: <span>4.5 to 5.5 km/h</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION B: Stationary Bike</div>
+                            <div class="ex-name-ar">العجلة (Stationary Bike)</div>
+                            <div class="ex-details">Level: <span>3 to 5</span> | Speed / RPM: <span>70 to 80</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-arrows-spin"></i>
+                            <span class="card-title">Dynamic Stretching & Joint Warm-up</span>
+                        </div>
+                        <span class="sets-badge">1-2 Sets | 12 Reps</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Forward & Backward Leg Swings</div>
+                            <div class="ex-name-ar">مرجحة الساق للأمام والخلف</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Lateral Leg Swings</div>
+                            <div class="ex-name-ar">مرجحة الساق للجانب</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Knee Flexion & Extension</div>
+                            <div class="ex-name-ar">ضم وفرد الركب</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Ankle Circles</div>
+                            <div class="ex-name-ar">دوران الكاحل</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-layer-group"></i>
+                            <span class="card-title">Specific Ramping Sets</span>
+                        </div>
+                        <span class="sets-badge">Specific Warm-up</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)" style="margin-bottom: 12px;">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Single-Leg Press Machine</div>
+                            <div class="ex-name-ar">ليج برس فردي</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="ramping-container">
+                        <div class="ramping-item" onclick="toggleSelect(this)">
+                            <div class="ramping-info">
+                                <div class="ramping-en">Set 1: 50% of base weight 12 reps</div>
+                                <div class="ramping-ar">المجموعة الأولى: 50% من الوزن الأساسي × 12 تكراراً</div>
+                            </div>
+                            <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                        <div class="ramping-item" onclick="toggleSelect(this)">
+                            <div class="ramping-info">
+                                <div class="ramping-en">Set 2: 70%–80% of weight Base weight x 5 reps</div>
+                                <div class="ramping-ar">المجموعة الثانية: 70% - 80% من الوزن الأساسي × 5 تكرارات</div>
+                            </div>
+                            <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="phase-content main">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-dumbbell"></i>
+                            <span class="card-title">Legs Routine</span>
+                        </div>
+                        <span class="sets-badge">2-3 Sets | 8-12 Reps</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Single-Leg Press Machine</div>
+                            <div class="ex-name-ar">ليج برس فردي</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Smith Machine Hip Thrust</div>
+                            <div class="ex-name-ar">هيب ترست على جهاز السميث</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Hip Abduction Machine</div>
+                            <div class="ex-name-ar">جهاز فتح وإبعاد الحوض</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Hip Adduction Machine</div>
+                            <div class="ex-name-ar">جهاز ضم وتقريب الحوض</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Single-Leg Extension Machine</div>
+                            <div class="ex-name-ar">ليج اكستنشن فردي</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Seated Leg Curl Machine</div>
+                            <div class="ex-name-ar">ليج كيرل جالس</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Smith Machine Standing Calf Raise</div>
+                            <div class="ex-name-ar">سمانة واقف على جهاز السميث</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-bullseye"></i>
+                            <span class="card-title">Abs Routine</span>
+                        </div>
+                        <span class="sets-badge">1-2 Sets | 8-12 Reps</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Cable Rope Crunch</div>
+                            <div class="ex-name-ar">كرنش بحبل الكيبل</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Hanging Leg Raise</div>
+                            <div class="ex-name-ar">ليج ريسيز من وضع التعلق</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Single-Arm Cable Side Bend</div>
+                            <div class="ex-name-ar">سايد بيند كيبل فردي</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="phase-content cooldown">
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                            <span class="card-title">End Cardio</span>
+                        </div>
+                        <span class="badge-time">20-30 MIN</span>
+                    </div>
+                    <div class="sub-badge">Select 1 Option Only</div>
+
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION A: Stairmaster</div>
+                            <div class="ex-name-ar">جهاز السلم (Stairmaster)</div>
+                            <div class="ex-details">Level: <span>5 to 8</span> | Speed: <span>50 to 70 SPM</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION B: Cybex Arc Trainer</div>
+                            <div class="ex-name-ar">جهاز السايبكس (Cybex Arc Trainer)</div>
+                            <div class="ex-details">Incline: <span>10 to 15</span> | Resistance: <span>35 to 50</span> | Speed: <span>110 to 130 SPM</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION C: Treadmill</div>
+                            <div class="ex-name-ar">المشاية (Treadmill)</div>
+                            <div class="ex-details">Incline: <span>8 to 12</span> | Speed: <span>3.5 to 4.5 km/h</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-child"></i>
+                            <span class="card-title">Static Stretching & Cool-Down</span>
+                        </div>
+                        <span class="sets-badge">1-2 Sets | Hold 20-30s</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Standing Quadriceps Stretch</div>
+                            <div class="ex-name-ar">إطالة العضلة الأمامية (الكوادر)</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Seated Hamstring Stretch</div>
+                            <div class="ex-name-ar">إطالة العضلة الخلفية (الهامسترينج)</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Standing Calf Stretch</div>
+                            <div class="ex-name-ar">إطالة عضلات السمانة</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Groin/Adductor Stretch</div>
+                            <div class="ex-name-ar">إطالة عضلات الحوض والضامة</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Cobra Abdominal Stretch</div>
+                            <div class="ex-name-ar">إطالة عضلات البطن (الكوبرا)</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== DAY 4: UPPER BODY ==================== -->
+        <div id="day4" class="day-program" style="display: none;">
+            <div class="phase-content warmup active">
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-person-running"></i>
+                            <span class="card-title">General Warm-Up</span>
+                        </div>
+                        <span class="badge-time">5-10 MIN</span>
+                    </div>
+                    <div class="sub-badge">Select 1 Option Only</div>
+                    
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION A: Treadmill</div>
+                            <div class="ex-name-ar">المشاية (Treadmill)</div>
+                            <div class="ex-details">Incline: <span>2 to 4</span> | Speed: <span>4.5 to 5.5 km/h</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION B: Stationary Bike</div>
+                            <div class="ex-name-ar">العجلة (Stationary Bike)</div>
+                            <div class="ex-details">Level: <span>3 to 5</span> | Speed / RPM: <span>70 to 80</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-arrows-spin"></i>
+                            <span class="card-title">Dynamic Stretching</span>
+                        </div>
+                        <span class="sets-badge">1-2 Sets | 12 Reps</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Forward Arm Circles</div>
+                            <div class="ex-name-ar">دوران الذراع للأمام</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Backward Arm Circles</div>
+                            <div class="ex-name-ar">دوران الذراع للخلف</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Resistance Band Dislocates</div>
+                            <div class="ex-name-ar">إطالة الأكتاف بحبل المقاومة</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <span class="card-title">Rotator Cuff</span>
+                        </div>
+                        <span class="sets-badge">1-2 Sets | 12 Reps</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Cable External Shoulder Rotation</div>
+                            <div class="ex-name-ar">دوران خارجي للكتف بالكيبل</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Cable Internal Shoulder Rotation</div>
+                            <div class="ex-name-ar">دوران داخلي للكتف بالكيبل</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Cable Supraspinatus 15° Lateral Raise</div>
+                            <div class="ex-name-ar">رفرفة جانبي بالكيبل زاوية 15</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-layer-group"></i>
+                            <span class="card-title">Specific Ramping Sets</span>
+                        </div>
+                        <span class="sets-badge">Specific Warm-up</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)" style="margin-bottom: 12px;">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Bench Press Machine</div>
+                            <div class="ex-name-ar">دفع صدر مستوي بالجهاز</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="ramping-container">
+                        <div class="ramping-item" onclick="toggleSelect(this)">
+                            <div class="ramping-info">
+                                <div class="ramping-en">Set 1: 50% of base weight 12 reps</div>
+                                <div class="ramping-ar">المجموعة الأولى: 50% من الوزن الأساسي × 12 تكراراً</div>
+                            </div>
+                            <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                        <div class="ramping-item" onclick="toggleSelect(this)">
+                            <div class="ramping-info">
+                                <div class="ramping-en">Set 2: 70%–80% of weight Base weight x 5 reps</div>
+                                <div class="ramping-ar">المجموعة الثانية: 70% - 80% من الوزن الأساسي × 5 تكرارات</div>
+                            </div>
+                            <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="phase-content main">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-dumbbell"></i>
+                            <span class="card-title">Upper Body Exercises</span>
+                        </div>
+                        <span class="sets-badge">2-3 Sets | 8-12 Reps</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Bench Press Machine</div>
+                            <div class="ex-name-ar">دفع صدر مستوي بالجهاز</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Lat Pulldown</div>
+                            <div class="ex-name-ar">سحب عمودي</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Single-Arm Cable Lateral Raise</div>
+                            <div class="ex-name-ar">رفرفة جانبي كيبل فردي</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Machine Shoulder Press</div>
+                            <div class="ex-name-ar">دفع كتف بالجهاز</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Single-Arm Cable Rear Delt Fly</div>
+                            <div class="ex-name-ar">رفرفة كتف خلفي بالكيبل ذراع فردي</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Seated Single-Arm Cable Overhead Tricep</div>
+                            <div class="ex-name-ar">الترايسبس فوق الرأس بالكيبل فردي من وضعية الجلوس</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Single-Arm Behind-the-Back Cable Curl</div>
+                            <div class="ex-name-ar">بايسبس بالكيبل خلف الظهر ذراع فردي</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-hand-fist"></i>
+                            <span class="card-title">Forearms (Optional)</span>
+                        </div>
+                        <span class="sets-badge">1-2 Sets | 8-12 Reps</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">EZ-Bar Reverse Curl</div>
+                            <div class="ex-name-ar">تبادل باي مقلوب بالبار المنحني</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Dumbbell Wrist Flexion</div>
+                            <div class="ex-name-ar">ثني المعصم بالدمبل</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Dumbbell Farmer's Walk (30s-60s)</div>
+                            <div class="ex-name-ar">مشي المزارع بالدمبلز (30 ثانية - 60 ثانية)</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="phase-content cooldown">
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                            <span class="card-title">End Cardio</span>
+                        </div>
+                        <span class="badge-time">20-30 MIN</span>
+                    </div>
+                    <div class="sub-badge">Select 1 Option Only</div>
+
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION A: Stairmaster</div>
+                            <div class="ex-name-ar">جهاز السلم (Stairmaster)</div>
+                            <div class="ex-details">Level: <span>5 to 8</span> | Speed: <span>50 to 70 SPM</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION B: Cybex Arc Trainer</div>
+                            <div class="ex-name-ar">جهاز السايبكس (Cybex Arc Trainer)</div>
+                            <div class="ex-details">Incline: <span>10 to 15</span> | Resistance: <span>35 to 50</span> | Speed: <span>110 to 130 SPM</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION C: Treadmill</div>
+                            <div class="ex-name-ar">المشاية (Treadmill)</div>
+                            <div class="ex-details">Incline: <span>8 to 12</span> | Speed: <span>3.5 to 4.5 km/h</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-child"></i>
+                            <span class="card-title">Static Stretching & Cool-Down</span>
+                        </div>
+                        <span class="sets-badge">1-2 Sets | Hold 20-30s</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Wall Chest Stretch</div>
+                            <div class="ex-name-ar">إطالة عضلات الصدر على الحائط</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Standing Lat Stretch</div>
+                            <div class="ex-name-ar">إطالة عضلات الظهر</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Cross-Body Shoulder Stretch</div>
+                            <div class="ex-name-ar">إطالة عضلات الكتف الجانبي</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Wrist Flexor & Extensor Stretch</div>
+                            <div class="ex-name-ar">إطالة عضلات السواعد</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== DAY 5: LOWER BODY & ABS ==================== -->
+        <div id="day5" class="day-program" style="display: none;">
+            <div class="phase-content warmup active">
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-person-running"></i>
+                            <span class="card-title">General Warm-Up</span>
+                        </div>
+                        <span class="badge-time">5-10 MIN</span>
+                    </div>
+                    <div class="sub-badge">Select 1 Option Only</div>
+                    
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION A: Treadmill</div>
+                            <div class="ex-name-ar">المشاية (Treadmill)</div>
+                            <div class="ex-details">Incline: <span>2 to 4</span> | Speed: <span>4.5 to 5.5 km/h</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION B: Stationary Bike</div>
+                            <div class="ex-name-ar">العجلة (Stationary Bike)</div>
+                            <div class="ex-details">Level: <span>3 to 5</span> | Speed / RPM: <span>70 to 80</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-arrows-spin"></i>
+                            <span class="card-title">Dynamic Stretching & Joint Warm-Up</span>
+                        </div>
+                        <span class="sets-badge">1-2 Sets | 12 Reps</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Forward & Backward Leg Swings</div>
+                            <div class="ex-name-ar">مرجحة الساق للأمام والخلف</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Lateral Leg Swings</div>
+                            <div class="ex-name-ar">مرجحة الساق للجانب</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Knee Flexion & Extension</div>
+                            <div class="ex-name-ar">ضم وفرد الركب</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Ankle Circles</div>
+                            <div class="ex-name-ar">دوران الكاحل</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-layer-group"></i>
+                            <span class="card-title">Specific Ramping Sets</span>
+                        </div>
+                        <span class="sets-badge">Specific Warm-up</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)" style="margin-bottom: 12px;">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Hack Squat Machine</div>
+                            <div class="ex-name-ar">هاك سكوات بالجهاز</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="ramping-container">
+                        <div class="ramping-item" onclick="toggleSelect(this)">
+                            <div class="ramping-info">
+                                <div class="ramping-en">Set 1: 50% of base weight 12 reps</div>
+                                <div class="ramping-ar">المجموعة الأولى: 50% من الوزن الأساسي × 12 تكراراً</div>
+                            </div>
+                            <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                        <div class="ramping-item" onclick="toggleSelect(this)">
+                            <div class="ramping-info">
+                                <div class="ramping-en">Set 2: 70%–80% of weight Base weight x 5 reps</div>
+                                <div class="ramping-ar">المجموعة الثانية: 70% - 80% من الوزن الأساسي × 5 تكرارات</div>
+                            </div>
+                            <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="phase-content main">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-dumbbell"></i>
+                            <span class="card-title">Lower Body Exercises</span>
+                        </div>
+                        <span class="sets-badge">2-3 Sets | 8-12 Reps</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Hack Squat Machine</div>
+                            <div class="ex-name-ar">هاك سكوات بالجهاز</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Dumbbell Romanian Deadlift</div>
+                            <div class="ex-name-ar">ديد ليفت روماني بالدمبل (أو البار)</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Hip Abduction Machine</div>
+                            <div class="ex-name-ar">جهاز فتح وإبعاد الحوض</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Hip Adduction Machine</div>
+                            <div class="ex-name-ar">جهاز ضم وتقريب الحوض</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Single-Leg Extension Machine</div>
+                            <div class="ex-name-ar">ليج اكستنشن فردي</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Seated Leg Curl Machine</div>
+                            <div class="ex-name-ar">ليج كيرل جالس</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Single-Leg Standing Calf Raise Machine</div>
+                            <div class="ex-name-ar">سمانة واقف بالجهاز فردي</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-bullseye"></i>
+                            <span class="card-title">Abs Routine</span>
+                        </div>
+                        <span class="sets-badge">1-2 Sets | SELECT OPTION A OR B</span>
+                    </div>
+                    
+                    <div class="option-box abs-option" onclick="selectAbsOption(this)">
+                        <div class="option-header">
+                            <span>Dynamic Core OPTION A</span>
+                            <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                        <ul class="bullet-list">
+                            <li>Sit-ups (ست آب)</li>
+                            <li>Lying Leg Raise (ليج ريسيز نايم)</li>
+                            <li>Russian Twist (روشان تويست)</li>
+                        </ul>
+                    </div>
+
+                    <div class="option-box abs-option" onclick="selectAbsOption(this)">
+                        <div class="option-header">
+                            <span>Isometric Core OPTION B</span>
+                            <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                        <ul class="bullet-list">
+                            <li>Plank (بلانك)</li>
+                            <li>Side Plank (سايد بلانك)</li>
+                            <li>Leg Raise Hold (ثبات ليج ريسيز)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="phase-content cooldown">
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                            <span class="card-title">End Cardio</span>
+                        </div>
+                        <span class="badge-time">20-30 MIN</span>
+                    </div>
+                    <div class="sub-badge">Select 1 Option Only</div>
+
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION A: Stairmaster</div>
+                            <div class="ex-name-ar">جهاز السلم (Stairmaster)</div>
+                            <div class="ex-details">Level: <span>5 to 8</span> | Speed: <span>50 to 70 SPM</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION B: Cybex Arc Trainer</div>
+                            <div class="ex-name-ar">جهاز السايبكس (Cybex Arc Trainer)</div>
+                            <div class="ex-details">Incline: <span>10 to 15</span> | Resistance: <span>35 to 50</span> | Speed: <span>110 to 130 SPM</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+
+                    <div class="exercise-item option-item" onclick="selectSingleOption(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">OPTION C: Treadmill</div>
+                            <div class="ex-name-ar">المشاية (Treadmill)</div>
+                            <div class="ex-details">Incline: <span>8 to 12</span> | Speed: <span>3.5 to 4.5 km/h</span></div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <i class="fa-solid fa-child"></i>
+                            <span class="card-title">Static Stretching & Cool-Down</span>
+                        </div>
+                        <span class="sets-badge">1-2 Sets | Hold 20-30s</span>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Standing Quadriceps Stretch</div>
+                            <div class="ex-name-ar">إطالة العضلة الأمامية (الكوادر)</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Seated Hamstring Stretch</div>
+                            <div class="ex-name-ar">إطالة العضلة الخلفية (الهامسترينج)</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Standing Calf Stretch</div>
+                            <div class="ex-name-ar">إطالة عضلات السمانة</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Groin/Adductor Stretch</div>
+                            <div class="ex-name-ar">إطالة عضلات الحوض والضامة</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="exercise-item" onclick="toggleSelect(this)">
+                        <div class="ex-info">
+                            <div class="ex-name-en">Cobra Abdominal Stretch</div>
+                            <div class="ex-name-ar">إطالة عضلات البطن (الكوبرا)</div>
+                        </div>
+                        <div class="check-box"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="site-footer">
+            Designed & Developed for <span>C / NOUR</span> Workout Programs
+        </div>
+
+    </div>
+
+    <script>
+        const themeColors = {
+            day1: '#a855f7',
+            day2: '#eab308',
+            day3: '#f97316',
+            day4: '#06b6d4',
+            day5: '#ec4899'
+        };
+
+        const themeGlows = {
+            day1: 'rgba(168, 85, 247, 0.4)',
+            day2: 'rgba(234, 179, 8, 0.4)',
+            day3: 'rgba(249, 115, 22, 0.4)',
+            day4: 'rgba(6, 182, 212, 0.4)',
+            day5: 'rgba(236, 72, 153, 0.4)'
+        };
+
+        let currentActiveDay = 'day1';
+
+        function switchDay(dayId) {
+            currentActiveDay = dayId;
+            
+            // Hide all day programs
+            const programs = document.querySelectorAll('.day-program');
+            programs.forEach(p => p.style.display = 'none');
+
+            // Show current day program
+            const activeProg = document.getElementById(dayId);
+            if(activeProg) {
+                activeProg.style.display = 'block';
+            }
+
+            // Sync select
+            const select = document.getElementById('daySelect');
+            if(select) select.value = dayId;
+
+            // Apply Theme
+            if (themeColors[dayId]) {
+                document.documentElement.style.setProperty('--current-theme', themeColors[dayId]);
+                document.documentElement.style.setProperty('--current-theme-glow', themeGlows[dayId]);
+            }
+
+            // Reset phase tab to warmup
+            switchPhase('warmup');
+        }
+
+        function switchPhase(phaseName) {
+            const currentProg = document.getElementById(currentActiveDay);
+            if(!currentProg) return;
+
+            const contents = currentProg.querySelectorAll('.phase-content');
+            contents.forEach(c => c.classList.remove('active'));
+
+            const target = currentProg.querySelector('.' + phaseName);
+            if(target) target.classList.add('active');
+
+            // Update Tab Buttons UI
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(t => t.classList.remove('active'));
+
+            const indexMap = { 'warmup': 0, 'main': 1, 'cooldown': 2 };
+            if (tabs[indexMap[phaseName]]) {
+                tabs[indexMap[phaseName]].classList.add('active');
+            }
+        }
+
+        function toggleSelect(element) {
+            element.classList.toggle('selected');
+        }
+
+        function selectSingleOption(element) {
+            const parentCard = element.closest('.card');
+            if (!parentCard) return;
+
+            const options = parentCard.querySelectorAll('.option-item');
+            options.forEach(opt => {
+                if (opt !== element) {
+                    opt.classList.remove('selected');
+                }
+            });
+
+            element.classList.toggle('selected');
+        }
+
+        function selectAbsOption(element) {
+            const parentCard = element.closest('.card');
+            if (!parentCard) return;
+
+            const options = parentCard.querySelectorAll('.abs-option');
+            options.forEach(opt => {
+                if (opt !== element) {
+                    opt.classList.remove('selected');
+                }
+            });
+
+            element.classList.toggle('selected');
+        }
+
+        // --- Privacy & Screenshot Protection Logic ---
+        document.addEventListener('keyup', (e) => {
+            if (e.key === 'PrintScreen') {
+                navigator.clipboard.writeText('');
+                alert('Screenshots are disabled for privacy protection.');
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey && e.key === 'p') || 
+                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'C' || e.key === 'c' || e.key === 'J' || e.key === 'j')) ||
+                (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S'))) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Blank content on window blur or visibility change to prevent screen recording/captures
+        window.addEventListener('blur', () => {
+            document.body.style.filter = 'blur(20px)';
+        });
+
+        window.addEventListener('focus', () => {
+            document.body.style.filter = 'none';
+        });
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                document.getElementById('privacyBlanker').style.display = 'flex';
+            } else {
+                document.getElementById('privacyBlanker').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
